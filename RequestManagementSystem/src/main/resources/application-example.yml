@@ -8,9 +8,9 @@ spring:
   mustache:
     check-template-location: false
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/requestsdb'
-    username: kolotushka
-    password: pass
+    url: 'jdbc:postgresql://localhost:5432/requestsdb' # for change
+    username: username # for change
+    password: pass # for change
     hikari:
       connection-timeout: '30000'
   jpa:
@@ -22,8 +22,11 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 vaadin:
-  launch-browser: true
-  frontend:
-    hotdeploy: true
+  productionMode: true
   pnpm:
     enable: true
+  frontend:
+    hotdeploy: false
+    bundle-build: true
+  webpack:
+    generatedFolder: target/classes/META-INF/resources

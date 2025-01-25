@@ -42,6 +42,7 @@ The system is based on a multi-layered architecture that includes the following 
    * docker-compose-EXAMPLE.yml (delete -EXAMPLE)
    * default-example.conf (delete -example)
    * SecurityConfig.java
+   * application-example.yml
 2. Make build and .jar file of the project
 ```bash
 mvn clean package

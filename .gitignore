@@ -1,3 +1,5 @@
+.idea/
+
 RequestManagementSystem/target/
 RequestManagementSystem/.idea/
 RequestManagementSystem/.vscode/
@@ -27,3 +29,4 @@ RequestManagementSystem/vite.generated.ts
 RequestManagementSystem/drivers/
 RequestManagementSystem/error-screenshots/
 RequestManagementSystem/webpack.generated.js
+/.idea/

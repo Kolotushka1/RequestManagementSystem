@@ -1,12 +1,24 @@
+# Build stage
 FROM maven:3.9.2-eclipse-temurin-17 as build
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:go-offline
-COPY src ./src
-RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:17-jre
+# Install Node.js and pnpm
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g pnpm
+
+WORKDIR /app
+COPY . .
+RUN mvn clean package -Pprod -DskipTests
+
+# Runtime stage
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
+
+# Copy Vaadin production resources
+COPY --from=build /app/target/classes/META-INF/resources/ ./META-INF/resources/
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
