@@ -1,0 +1,29 @@
+server:
+  port: '${PORT:8080}'
+logging:
+  level:
+    org:
+      atmosphere: warn
+spring:
+  mustache:
+    check-template-location: false
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/requestsdb'
+    username: kolotushka
+    password: pass
+    hikari:
+      connection-timeout: '30000'
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+vaadin:
+  launch-browser: true
+  frontend:
+    hotdeploy: true
+  pnpm:
+    enable: true

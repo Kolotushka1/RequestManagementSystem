@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: username # for change
+      POSTGRES_PASSWORD: pass # for change
+      POSTGRES_DB: requestsdb # for change
+    volumes:
+      - postgres_data:/var/lib/postgres
+    ports:
+      - "5000:5432"
+    networks:
+      - main
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/requestsdb # for change
+      SPRING_DATASOURCE_USERNAME: username # for change
+      SPRING_DATASOURCE_PASSWORD: pass # for change
+    ports:
+      - "8080:8080"
+    networks:
+      - main
+
+#  nginx: -> Optional
+#    image: nginx:latest
+#    depends_on:
+#      - app
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#    volumes:
+#      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+#      - ./nginx/ssl:/etc/nginx/ssl
+#      - ./nginx/logs:/var/log/nginx
+#    networks:
+#      - main
+#    restart: always
+
+volumes:
+  postgres_data:
+
+networks:
+  main:
+    name: main
+    external: true
