@@ -33,7 +33,6 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -55,6 +54,9 @@ public class SecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                .headers(headers -> headers
+                        .frameOptions().sameOrigin()
+                        .httpStrictTransportSecurity().disable())
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
@@ -97,11 +99,11 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 //        configuration.setAllowedOrigins(Arrays.asList("https://yourdomain.com", "https://anotherdomain.com")); // # for change
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With", "X-Frame-Options"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Location"));
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/*", configuration);
         return source;
     }
 

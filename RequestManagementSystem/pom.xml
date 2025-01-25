@@ -12,13 +12,13 @@
     <properties>
         <java.version>17</java.version>
         <vaadin.version>24.6.2</vaadin.version>
-        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <commons-lang3.version>3.16.0</commons-lang3.version>
         <classgraph.version>4.8.179</classgraph.version>
-        <jackson-dataformat-yaml.version>2.18.2</jackson-dataformat-yaml.version>
-        <snakeyaml.version>2.3</snakeyaml.version>
-        <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
-        <jakarta.activation-api.version>2.1.3</jakarta.activation-api.version>
-        <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
+        <jackson-dataformat-yaml.version>2.17.2</jackson-dataformat-yaml.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
+        <jakarta.xml.bind-api.version>2.3.3</jakarta.xml.bind-api.version>
+        <jakarta.activation-api.version>1.1.2</jakarta.activation-api.version>
+        <jakarta.validation-api.version>2.0.2</jakarta.validation-api.version>
     </properties>
 
     <parent>
@@ -98,6 +98,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>3.5.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -195,7 +201,7 @@
     <profiles>
         <profile>
             <!-- Production mode is activated using -Pproduction -->
-            <id>production</id>
+            <id>prod</id>
             <dependencies>
                 <!-- Exclude development dependencies from production -->
                 <dependency>
@@ -205,6 +211,10 @@
                         <exclusion>
                             <groupId>com.vaadin</groupId>
                             <artifactId>vaadin-dev</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>org.apache.commons</groupId>
+                            <artifactId>commons-lang3</artifactId>
                         </exclusion>
                     </exclusions>
                 </dependency>
@@ -220,7 +230,7 @@
                                 <goals>
                                     <goal>prepare-frontend</goal>
                                     <goal>build-frontend</goal>
-                                    <goal>copy-production-files</goal>
+<!--                                    <goal>copy-production-files</goal>-->
                                 </goals>
                             </execution>
                         </executions>

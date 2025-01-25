@@ -4,13 +4,17 @@ logging:
   level:
     org:
       atmosphere: warn
+      springframework:
+        web:
+          util:
+            pattern: DEBUG
 spring:
   mustache:
     check-template-location: false
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/requestsdb' # for change
-    username: username # for change
-    password: pass # for change
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     hikari:
       connection-timeout: '30000'
   jpa:

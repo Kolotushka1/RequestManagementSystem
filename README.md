@@ -39,18 +39,19 @@ The system is based on a multi-layered architecture that includes the following 
 ## Installation and launch
 
 1. Change all optional things in:
-   * docker-compose-EXAMPLE.yml (delete -EXAMPLE)
-   * default-example.conf (delete -example)
-   * SecurityConfig.java
-   * application-example.yml
-2. Make build and .jar file of the project
+   * docker-compose-example.yml (delete -example) - use to change database data
+   * if you want try use it with nginx you can use this file:
+   * default-example.conf (delete -example) -> also uncomment part in docker-compose
+   * SecurityConfig.java - if you use nginx you can change your domain
+2.
+3. Make build and .jar file of the project (or use [Dockerfile-v1-build](RequestManagementSystem%2FDockerfile-v1-build) - better to make mvn package)
 ```bash
 mvn clean package
 ```
-3. Run:
+4. Run:
 ```bash
 docker-compose build
 docker-compose up -d
 ```
-4. Go to localhost:8080 (if you haven't changed anything)
-5. That's all!
+5. Go to localhost:8080 (if you haven't changed anything)
+6. That's all!
