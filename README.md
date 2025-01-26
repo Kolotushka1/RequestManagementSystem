@@ -43,13 +43,14 @@ The system is based on a multi-layered architecture that includes the following 
    * if you want try use it with nginx you can use this file:
    * default-example.conf (delete -example) -> also uncomment part in docker-compose
    * SecurityConfig.java - if you use nginx you can change your domain
-2.
-3. Make build and .jar file of the project (or use [Dockerfile-v1-build](RequestManagementSystem%2FDockerfile-v1-build) - better to make mvn package)
+2. **Fast way to start (don't use nginx and change database data in docker-compose)**
+3. Make build and .jar file of the project (or use [Dockerfile-v1-build](Dockerfile-v1-build) - better to make mvn package)
 ```bash
-mvn clean package
+mvn clean package -Pprod -DskipTestsmvn
 ```
 4. Run:
 ```bash
+docker network create main
 docker-compose build
 docker-compose up -d
 ```
